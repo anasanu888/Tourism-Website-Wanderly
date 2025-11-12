@@ -1,207 +1,353 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wanderly – Discover Your Next Getaway</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wanderly — Discover & Book Trips | Professional Demo</title>
+  <meta name="description" content="Wanderly — handpicked hotels, experiences and instant bookings. Professional travel demo inspired by major OTAs (MakeMyTrip)." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Schema / structured data to look like a professional listing site -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Wanderly",
+    "url": "https://example.com",
+    "logo": "https://example.com/logo.png",
+    "sameAs": [],
+    "description": "Handpicked stays and experiences with instant booking and best-price guarantees."
+  }
+  </script>
+
   <style>
     :root{
-      --bg:#0b1020;
-      --surface:#111833;
-      --muted:#9aa3b2;
-      --text:#e8ecf3;
-      --brand:#5ae3b4;
-      --brand-2:#6fa7ff;
-      --ring: rgba(111,167,255,.35);
+      --bg:#0b1020; --surface:#0f1830; --muted:#9aa3b2; --text:#e8ecf3; --accent:#5ae3b4; --accent-2:#6fa7ff; --glass:rgba(255,255,255,0.04);
+      --radius:14px; --max:1200px; --shadow-lg:0 20px 50px rgba(2,6,23,0.6);
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; background:linear-gradient(180deg, #0b1020 0%, #0f1731 100%); color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
-    a{color:inherit; text-decoration:none}
-    .container{max-width:1100px; margin-inline:auto; padding:0 20px}
-    .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.4) blur(10px); background:rgba(11,16,32,.6); border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:66px}
-    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
-    .logo-badge{width:34px; height:34px; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); display:grid; place-items:center; box-shadow:0 10px 24px rgba(90,227,180,.25)}
-    .logo-badge span{font-family:"Playfair Display", serif; font-weight:700; color:#07131a}
-    .nav-links{display:flex; gap:18px; font-weight:600; font-size:.95rem}
+    html,body{height:100%; margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,#071023 0%,#0b1020 100%); color:var(--text); -webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
 
-    .hero{position:relative; padding:80px 0 120px}
-    .hero::before{content:""; position:absolute; inset:0; background:radial-gradient(800px 400px at 80% 10%, rgba(111,167,255,.15), transparent 60%), radial-gradient(600px 300px at 10% 0%, rgba(90,227,180,.12), transparent 60%)}
-    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:center}
-    .eyebrow{display:inline-block; padding:6px 12px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:.8rem; color:var(--muted)}
-    .hero h1{font-family:"Playfair Display", serif; font-weight:700; font-size:3rem; line-height:1.1; margin:16px 0}
-    .hero p{color:var(--muted); font-size:1.05rem; max-width:48ch}
-    .search{margin-top:24px; display:flex; gap:10px}
-    .input{flex:1; background:var(--surface); color:var(--text); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px 16px; outline:none}
-    .input:focus{border-color:var(--brand-2); box-shadow:0 0 0 8px var(--ring)}
-    .btn{background:linear-gradient(135deg,var(--brand-2),var(--brand)); color:#081018; border:none; border-radius:14px; padding:14px 18px; font-weight:800; cursor:pointer; box-shadow:0 12px 30px rgba(111,167,255,.25);}
-    .btn:hover{transform:translateY(-1px)}
+    /* NAV */
+    .nav{position:sticky; top:0; z-index:60; backdrop-filter: blur(8px) saturate(1.1); background:linear-gradient(180deg, rgba(6,10,20,0.65), rgba(6,10,20,0.5)); border-bottom:1px solid rgba(255,255,255,0.03)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:72px}
+    .logo{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px}
+    .logo-badge{width:42px; height:42px; border-radius:10px; display:grid; place-items:center; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 8px 30px rgba(111,167,255,0.08)}
+    .logo-badge span{font-family:'Playfair Display',serif; font-weight:700; color:#07131a}
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{padding:8px 12px; border-radius:10px; font-weight:600; color:var(--muted); transition:all .18s}
+    .nav-links a:hover{color:var(--text); background:rgba(255,255,255,0.02)}
 
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius:22px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.35)}
-    .hero-card img{width:100%; height:280px; object-fit:cover}
-    .hero-card .meta{display:flex; justify-content:space-between; padding:14px 16px; color:var(--muted); font-size:.9rem}
+    /* Hero */
+    .hero{padding:64px 0 36px}
+    .hero-grid{display:grid; grid-template-columns:1fr 420px; gap:36px; align-items:start}
+    .eyebrow{display:inline-block; padding:6px 12px; border-radius:999px; color:var(--muted); background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); font-size:.85rem}
+    h1{font-family:'Playfair Display',serif; font-weight:700; font-size:2.6rem; margin:12px 0 8px; line-height:1.02}
+    p.lead{color:var(--muted); margin:0 0 18px; max-width:60ch}
 
-    .section{padding:70px 0}
-    .section h2{font-family:"Playfair Display", serif; font-size:2rem; margin:0 0 10px}
-    .section p.section-sub{color:var(--muted); margin:0 0 28px}
+    /* Search bar with filters */
+    .search-card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:18px; padding:18px; border:1px solid rgba(255,255,255,0.04); box-shadow:var(--shadow-lg)}
+    .search-row{display:flex; gap:10px; align-items:center}
+    .search-field{flex:1; background:var(--surface); border:1px solid rgba(255,255,255,0.04); padding:12px 14px; border-radius:12px; outline:none; color:var(--text)}
+    .search-field:focus{box-shadow:0 0 0 8px rgba(111,167,255,0.06); border-color:var(--accent-2)}
+    .btn{background:linear-gradient(135deg,var(--accent-2),var(--accent)); color:#07131a; font-weight:800; padding:12px 16px; border-radius:12px; border:none; cursor:pointer}
 
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease}
-    .card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.35)}
-    .card img{width:100%; height:180px; object-fit:cover}
-    .card-content{padding:16px}
-    .tag{display:inline-block; font-size:.75rem; padding:6px 10px; border-radius:999px; background:rgba(111,167,255,.18); color:#cfe0ff; border:1px solid rgba(255,255,255,.12)}
+    .hero-card{border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+    .hero-card img{width:100%; height:280px; object-fit:cover; display:block}
+    .meta{display:flex; justify-content:space-between; padding:12px 14px; color:var(--muted); font-size:.95rem}
+
+    /* Sections */
+    .section{padding:54px 0}
+    .section h2{font-family:'Playfair Display',serif; font-size:1.6rem; margin:0 0 8px}
+    .section p.section-sub{color:var(--muted); margin:0 0 20px}
+
+    /* Cards grid */
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .card{background:var(--glass); border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-6px); box-shadow:0 24px 60px rgba(2,6,23,0.6)}
+    .card img{width:100%; height:180px; object-fit:cover; display:block}
+    .card-body{padding:14px}
+    .tag{display:inline-block; font-size:.75rem; padding:6px 10px; border-radius:999px; background:rgba(111,167,255,0.12); color:#cfe0ff; border:1px solid rgba(255,255,255,.06)}
     .title{font-weight:700; margin:10px 0 6px}
     .muted{color:var(--muted); font-size:.95rem}
 
-    .features{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    .feature{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:18px}
-    .feature b{display:block; margin-bottom:6px}
+    /* Filters bar */
+    .filters{display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap}
+    .pill{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); padding:8px 12px; border-radius:999px; color:var(--muted); font-weight:600}
 
+    /* Gallery */
     .gallery{display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px}
-    .gallery img{width:100%; height:100%; object-fit:cover; border-radius:16px; border:1px solid rgba(255,255,255,.08)}
-    .gallery .tall{grid-row:span 2}
+    .gallery img{width:100%; height:100%; object-fit:cover; border-radius:10px; display:block}
 
-    .cta{margin-top:28px; background:linear-gradient(135deg, rgba(111,167,255,.15), rgba(90,227,180,.15)); border:1px solid rgba(255,255,255,.12); padding:22px; border-radius:20px; display:flex; align-items:center; justify-content:space-between; gap:18px}
+    /* Responsive */
+    @media (max-width:1000px){.hero-grid{grid-template-columns:1fr} .cards{grid-template-columns:1fr 1fr} .gallery{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.cards{grid-template-columns:1fr} .nav-links{display:none} .hero-card img{height:200px}}
 
-    .footer{padding:50px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+    /* Microinteractions */
+    .rating{display:inline-flex; gap:6px; align-items:center; background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); padding:6px 8px; border-radius:8px; font-weight:700}
 
-    @media (max-width: 900px){
-      .hero-grid{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
-      .features{grid-template-columns:1fr}
-      .gallery{grid-template-columns:1fr}
-    }
+    /* Footer */
+    .footer{padding:36px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,0.03)}
+
+    /* Modal (booking) */
+    .modal-backdrop{position:fixed; inset:0; background:linear-gradient(rgba(2,6,23,0.6), rgba(2,6,23,0.6)); display:none; align-items:center; justify-content:center; z-index:120}
+    .modal{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; width:720px; max-width:95%; padding:18px; border:1px solid rgba(255,255,255,0.04)}
+    .close{background:transparent; border:none; color:var(--muted); font-weight:800; cursor:pointer}
+
+    /* tiny utility */
+    .muted-small{color:var(--muted); font-size:.85rem}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
   </style>
 </head>
 <body>
-  <!-- Nav -->
-  <nav class="nav">
+  <nav class="nav" role="navigation" aria-label="Main Navigation">
     <div class="container nav-inner">
-      <a href="#" class="logo">
-        <span class="logo-badge"><span>W</span></span>
-        Wanderly
+      <a class="logo" href="#" aria-label="Wanderly home">
+        <span class="logo-badge" aria-hidden="true"><span>W</span></span>
+        <span style="font-size:1.05rem">Wanderly</span>
       </a>
-      <div class="nav-links">
-        <a href="#popular">Popular</a>
-        <a href="#why">Why Us</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#book">Book</a>
+      <div class="nav-links" role="menubar" aria-hidden="false">
+        <a href="#popular" role="menuitem">Stays</a>
+        <a href="#experiences" role="menuitem">Experiences</a>
+        <a href="#gallery" role="menuitem">Gallery</a>
+        <a href="#book" role="menuitem">Book</a>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center">
+        <button class="pill" onclick="toggleLogin()" aria-expanded="false">Sign in</button>
+        <button class="btn" onclick="openBooking()">Get Started</button>
       </div>
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow">Handpicked escapes · Best prices</span>
-        <h1>Find your next <span style="background:linear-gradient(135deg,var(--brand-2),var(--brand)); -webkit-background-clip:text; background-clip:text; color:transparent;">dream destination</span>.</h1>
-        <p>From misty mountains to sunlit shores, discover stays and experiences tailored to your vibe. Book in minutes, cherish for years.</p>
-        <form class="search" onsubmit="event.preventDefault(); alert('Search triggered! Replace with your flow.');">
-          <input class="input" placeholder="Try: Goa, Manali, Bali, Paris…" />
-          <button class="btn" type="submit">Search</button>
-        </form>
-        <div style="margin-top:14px; color:var(--muted); font-size:.9rem;">Trending: Goa · Jaipur · Bali · Swiss Alps</div>
+        <span class="eyebrow">Handpicked stays · Best prices</span>
+        <h1>Find your next <span style="background:linear-gradient(90deg,var(--accent-2),var(--accent)); -webkit-background-clip:text; color:transparent;">dream destination</span></h1>
+        <p class="lead">Search curated stays and activities with instant confirmation, transparent pricing and local support. Designed for explorers who want speed + trust.</p>
+
+        <div class="search-card" aria-label="Search stays and experiences">
+          <form id="searchForm" onsubmit="event.preventDefault(); applySearch();">
+            <div class="search-row">
+              <input id="q" class="search-field" placeholder="City, property or landmark — e.g. Goa, Manali, Bali" aria-label="Destination" />
+              <input id="date" type="text" class="search-field" placeholder="Check-in — Check-out (click to pick)" aria-label="Dates" readonly onclick="pickDates()" />
+              <select id="guests" class="search-field" aria-label="Guests">
+                <option value="1">1 guest</option>
+                <option value="2" selected>2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+              </select>
+              <button class="btn" type="submit">Search</button>
+            </div>
+            <div style="margin-top:10px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <div class="pill">Free cancellation</div>
+              <div class="pill">Lowest price guarantee</div>
+              <div class="pill">Verified stays</div>
+            </div>
+          </form>
+        </div>
+
+        <div style="margin-top:12px; color:var(--muted); font-size:.95rem">Trending: Goa · Jaipur · Bali · Swiss Alps</div>
+
+        <section style="margin-top:26px">
+          <h3 style="margin:0 0 8px">Top picks for you</h3>
+          <div style="display:flex; gap:12px; margin-top:8px">
+            <div class="pill">Family Friendly</div>
+            <div class="pill">Budget</div>
+            <div class="pill">Couples</div>
+          </div>
+        </section>
       </div>
 
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop" alt="Beach" />
+      <aside class="hero-card" aria-label="Featured stay">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop" alt="Beachfront resort" />
         <div class="meta">
-          <span>Beachfront · 4.8 ★</span>
-          <span>From ₹2,999/night</span>
+          <div><strong>Beachfront · 4.8</strong><div class="muted-small">256 reviews</div></div>
+          <div style="text-align:right"><div style="font-weight:800">From ₹2,999</div><div class="muted-small">/night</div></div>
         </div>
-      </div>
+      </aside>
     </div>
   </header>
 
-  <!-- Popular Destinations -->
-  <section id="popular" class="section">
-    <div class="container">
-      <h2>Popular this season</h2>
-      <p class="section-sub">Curated destinations travelers are loving right now.</p>
-      <div class="cards">
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1491555103944-7c647fd857e6?q=80&w=1600&auto=format&fit=crop" alt="Goa" />
-          <div class="card-content">
-            <span class="tag">India</span>
-            <div class="title">Goa · Sunset & Shores</div>
-            <div class="muted">Live the susegad life — cafes, cathedrals and coastal bliss.</div>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1600&auto=format&fit=crop" alt="Jaipur" />
-          <div class="card-content">
-            <span class="tag">India</span>
-            <div class="title">Jaipur · Royal Trails</div>
-            <div class="muted">Palaces, pink boulevards and timeless Rajasthani flavors.</div>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt="Bali" />
-          <div class="card-content">
-            <span class="tag">Indonesia</span>
-            <div class="title">Bali · Island Calm</div>
-            <div class="muted">Rice terraces, waterfalls and dreamy island retreats.</div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+  <main>
+    <section id="popular" class="section">
+      <div class="container">
+        <h2>Popular this season</h2>
+        <p class="section-sub">Curated destinations travelers are loving right now.</p>
 
-  <!-- Why Us -->
-  <section id="why" class="section">
-    <div class="container">
-      <h2>Why travel with Wanderly?</h2>
-      <p class="section-sub">We make planning effortless and experiences unforgettable.</p>
-      <div class="features">
-        <div class="feature"><b>Best Price Match</b><span class="muted">Found it cheaper? We’ll match it. Period.</span></div>
-        <div class="feature"><b>Instant Booking</b><span class="muted">Real-time availability, lightning‑fast checkout.</span></div>
-        <div class="feature"><b>Curated Stays</b><span class="muted">Handpicked hotels and homestays with reviews.</span></div>
-      </div>
-      <div class="cta" id="book">
-        <div>
-          <b style="font-size:1.2rem">Ready when you are.</b>
-          <div class="muted">Plan solo escapes, family trips or team offsites in a few clicks.</div>
+        <div class="filters" role="toolbar" aria-label="Filters">
+          <button class="pill" onclick="filter('all')">All</button>
+          <button class="pill" onclick="filter('india')">India</button>
+          <button class="pill" onclick="filter('asia')">Asia</button>
+          <button class="pill" onclick="filter('beach')">Beach</button>
+          <div style="margin-left:auto; display:flex; gap:8px"><div class="muted-small">Sort:</div>
+            <select onchange="sortBy(this.value)" aria-label="Sort results">
+              <option value="popular">Most popular</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
         </div>
-        <a href="#" class="btn" onclick="alert('Booking flow goes here!')">Start Booking</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Gallery -->
-  <section id="gallery" class="section">
-    <div class="container">
-      <h2>Postcard moments</h2>
-      <p class="section-sub">A little wanderlust for your screen.</p>
-      <div class="gallery">
-        <img class="tall" src="https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=1200&auto=format&fit=crop" alt="Mountains" />
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=900&auto=format&fit=crop" alt="Coast" />
-        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=900&auto=format&fit=crop" alt="City" />
-        <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=900&auto=format&fit=crop" alt="Forest" />
-        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=900&auto=format&fit=crop" alt="Island" />
+        <div id="cards" class="cards" aria-live="polite">
+          <!-- Cards are rendered by JavaScript for demo -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="experiences" class="section" style="background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)">
+      <div class="container">
+        <h2>Experiences</h2>
+        <p class="section-sub">Local experiences and curated tours to make your trip memorable.</p>
+        <div class="cards" id="experienceCards"></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="container">
+        <h2>Postcard moments</h2>
+        <p class="section-sub">A little wanderlust for your screen.</p>
+        <div class="gallery" aria-hidden="false">
+          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=1200&auto=format&fit=crop" alt="Mountains" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=900&auto=format&fit=crop" alt="Coast" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=900&auto=format&fit=crop" alt="City" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=900&auto=format&fit=crop" alt="Forest" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=900&auto=format&fit=crop" alt="Island" loading="lazy" />
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
-    <div class="container" style="display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap">
+    <div class="container" style="display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center">
       <div>
-        <div class="logo" style="margin-bottom:8px">
-          <span class="logo-badge"><span>W</span></span>
-          Wanderly
-        </div>
-        <div class="muted">© <span id="year"></span> Wanderly Travels. All rights reserved.</div>
+        <div class="logo" style="margin-bottom:8px"><span class="logo-badge"><span>W</span></span> Wanderly</div>
+        <div class="muted-small">© <span id="year"></span> Wanderly Travels. All rights reserved.</div>
       </div>
-      <div class="muted">Made with ♥ for explorers.</div>
+      <div class="muted-small">Made with ♥ for explorers • Support: support@wanderly.example</div>
     </div>
   </footer>
 
+  <!-- Booking modal -->
+  <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px">
+        <div>
+          <h3 style="margin:0">Quick booking</h3>
+          <div class="muted-small">Secure your stay in just a few steps</div>
+        </div>
+        <button class="close" onclick="closeBooking()">✕</button>
+      </div>
+      <form id="bookingForm" onsubmit="event.preventDefault(); completeBooking();">
+        <div class="grid-2">
+          <input class="search-field" placeholder="Full name" required />
+          <input class="search-field" type="email" placeholder="Email" required />
+        </div>
+        <div style="margin-top:10px" class="grid-2">
+          <input class="search-field" placeholder="Phone" required />
+          <input class="search-field" placeholder="Promo code (optional)" />
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px">
+          <button type="button" class="pill" onclick="closeBooking()">Cancel</button>
+          <button class="btn" type="submit">Confirm & Pay</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const sampleListings = [
+      {title:'Goa · Sunset & Shores', tag:'India', img:'https://images.unsplash.com/photo-1491555103944-7c647fd857e6?q=80&w=1600&auto=format&fit=crop', price:2999, rating:4.7, reviews:512, type:'beach'},
+      {title:'Jaipur · Royal Trails', tag:'India', img:'https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1600&auto=format&fit=crop', price:2599, rating:4.6, reviews:320, type:'heritage'},
+      {title:'Bali · Island Calm', tag:'Indonesia', img:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop', price:4999, rating:4.8, reviews:412, type:'beach'},
+      {title:'Swiss Alps · Snow Retreat', tag:'Switzerland', img:'https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=1600&auto=format&fit=crop', price:12999, rating:4.9, reviews:210, type:'mountain'},
+      {title:'Kerala Backwaters', tag:'India', img:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1600&auto=format&fit=crop', price:3999, rating:4.7, reviews:142, type:'river'}
+    ];
+
+    function renderCards(list){
+      const container = document.getElementById('cards'); container.innerHTML='';
+      list.forEach(l=>{
+        const el = document.createElement('article'); el.className='card';
+        el.innerHTML = `\
+          <img loading="lazy" src="${l.img}" alt="${escapeHtml(l.title)}" />\
+          <div class="card-body">\
+            <div style=\"display:flex;justify-content:space-between;align-items:center\">\
+              <div><span class=\"tag\">${l.tag}</span></div>\
+              <div class=\"rating\">${l.rating} ★</div>\
+            </div>\
+            <div class=\"title\">${escapeHtml(l.title)}</div>\
+            <div class=\"muted\">From <strong>₹${numberWithCommas(l.price)}</strong>/night • ${l.reviews} reviews</div>\
+            <div style=\"display:flex;justify-content:space-between;margin-top:12px;align-items:center\">\
+              <button class=\"pill\" onclick=\"openBooking('${encodeURIComponent(l.title)}')\">Book</button>\
+              <button class=\"pill\" onclick=\"viewDetails('${encodeURIComponent(l.title)}')\">Details</button>\
+            </div>\
+          </div>`;
+        container.appendChild(el);
+      })
+    }
+
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]; }); }
+    function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+
+    // initial render
+    renderCards(sampleListings.slice(0,3));
+
+    function applySearch(){
+      const q = document.getElementById('q').value.toLowerCase();
+      const filtered = sampleListings.filter(l => l.title.toLowerCase().includes(q) || l.tag.toLowerCase().includes(q));
+      renderCards(filtered.length?filtered:sampleListings);
+    }
+
+    function filter(k){
+      if(k==='all') renderCards(sampleListings);
+      else renderCards(sampleListings.filter(s=> s.tag.toLowerCase().includes(k) || s.type===k));
+    }
+    function sortBy(k){
+      let arr = sampleListings.slice();
+      if(k==='price-low') arr.sort((a,b)=>a.price-b.price);
+      if(k==='price-high') arr.sort((a,b)=>b.price-a.price);
+      renderCards(arr);
+    }
+
+    // experiences (simple demo)
+    const experiences = [
+      {title:'Whitewater Rafting — Rishikesh', img:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1600&auto=format&fit=crop', price:1999},
+      {title:'Heritage Walk — Jaipur', img:'https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1600&auto=format&fit=crop', price:999},
+      {title:'Balinese Cooking Class', img:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop', price:1699}
+    ];
+    const xpContainer = document.getElementById('experienceCards'); xpContainer.innerHTML='';
+    experiences.forEach(x=>{ const n=document.createElement('article'); n.className='card'; n.innerHTML=`<img loading="lazy" src="${x.img}" alt="${escapeHtml(x.title)}" /><div class="card-body"><div class="title">${escapeHtml(x.title)}</div><div class="muted">From ₹${numberWithCommas(x.price)}</div><div style="margin-top:10px"><button class="pill" onclick="openBooking('${encodeURIComponent(x.title)}')">Book</button></div></div>`; xpContainer.appendChild(n); });
+
+    // Booking modal controls
+    const modal = document.getElementById('modal');
+    function openBooking(name){
+      modal.style.display='flex'; modal.setAttribute('aria-hidden','false');
+      const form = document.getElementById('bookingForm');
+      form.querySelector('input[placeholder="Full name"]').focus();
+      // you can prefill property name in real app
+      return false;
+    }
+    function closeBooking(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+    function completeBooking(){ closeBooking(); alert('Booking complete — this is a demo flow. Integrate with payments & backend.'); }
+
+    function viewDetails(name){ alert(decodeURIComponent(name) + '\n\nThis would open a full property detail page in a production site.'); }
+
+    function toggleLogin(){ alert('Demo sign-in modal here — integrate with OAuth/SAML in production.'); }
+
+    // simple date picker stub (replace with a datepicker lib or custom calendar)
+    function pickDates(){ const v = prompt('Enter dates (e.g. 2025-12-20 to 2025-12-25)'); if(v) document.getElementById('date').value = v; }
+
+    // small progressive enhancement: keyboard shortcut 'f' focuses search
+    document.addEventListener('keydown', e => { if(e.key==='f' && !e.metaKey && !e.ctrlKey){ e.preventDefault(); document.getElementById('q').focus(); } });
+
+    // Accessibility: close modal with escape
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeBooking(); });
   </script>
 </body>
 </html>
